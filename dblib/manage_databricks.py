@@ -5,14 +5,16 @@ from databricks_cli.clusters.api import ClusterApi
 
 
 def list_clusters():
-
     api_client = ApiClient(
         host=os.getenv("DATABRICKS_HOST"), token=os.getenv("DATABRICKS_TOKEN")
     )
-    clusters_api = ClusterApi(api_client)
-    clusters_list = clusters_api.list_clusters()
+
+    cluster_api = ClusterApi(api_client)
+    clusters_list = cluster_api.list_clusters()
+
     print("Cluster name, cluster ID")
 
     for cluster in clusters_list["clusters"]:
-        print(f"{cluster['cluster_name']}, {cluster['cluster_id']}")
+        print(cluster["cluster_name"], cluster["cluster_id"])
+
     return clusters_list
